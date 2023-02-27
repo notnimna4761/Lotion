@@ -1,0 +1,21 @@
+#title_bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ebebeb;
+    padding: 10px;
+    border-bottom: 3px solid #5f5f5f;
+  }
+  
+  #center_text {
+    text-align: center;
+  }
+  #subheading{
+    color: rgb(105, 105, 105);
+  }
+  #hide_sidebar, #dark_mode {
+    font-size: 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
