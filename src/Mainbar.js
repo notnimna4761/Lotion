@@ -5,7 +5,7 @@ function Mainbar({notes,onDeleteNote}) {
                 <h1 id = "mainbar-title"> Note 1 </h1>
                 <div id = "mainbar-buttons">
                     <button id = "save_button" >save</button>
-                    {/* i changed this to notes instead of note  */}
+                    {/* i changed this to notes instead of note how do i delete if not?? i need to have note */}
                     <button onClick= {() => onDeleteNote(notes.id)} id = "delete_button">delete</button>
                 </div>
             </div>

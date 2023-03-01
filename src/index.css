@@ -72,17 +72,17 @@ button:hover {
   height: calc(100vh - 78px);
   overflow-y: scroll;
 }
-#sidebar-note {
+.sidebar-note {
   padding: 25px;
   cursor: pointer;
   border: #2e2e2e;
 }
 
-#sidebar-note:hover {
+.sidebar-note:hover {
   background: #ddd;
 }
-#sidebar-note.active,
-#sidebar-note.active small {
+.sidebar-note.active,
+.sidebar-note.active small {
   background: #08c;
   color: white;
 }

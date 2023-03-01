@@ -6,6 +6,7 @@ import Headbar from "./Headbar.js";
 
 function App() {
   const [notes, setNotes] = useState([]);
+  const [activeNote, setActiveNote] = useState(false);
 
   const onAddNote = () => {
     const newNote = {
@@ -27,7 +28,13 @@ function App() {
     <div classname ="App">
           <Headbar />
           <div id = "container">
-              <Sidebar notes = {notes} onAddNote = {onAddNote} onDeleteNote = {onDeleteNote}/>
+              <Sidebar 
+              notes = {notes} 
+              onAddNote = {onAddNote} 
+              onDeleteNote = {onDeleteNote}
+              activeNote = {activeNote}
+              setactiveNote = {setActiveNote}
+              />
               <Mainbar onDeleteNote = {onDeleteNote}/>
           </div>
     </div>
