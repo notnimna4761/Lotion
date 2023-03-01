@@ -1,10 +1,27 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+button {
+  background: none;
+  border: 0;
+  margin: 0;
+  padding: 10px;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  color: #08c;
+}
+button:hover {
+  color: #04c;
+}
 
 #title_bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #ebebeb;
-  padding: 10px;
+  padding: 5px;
   border-bottom: 3px solid #5f5f5f;
 }
 
@@ -21,4 +38,109 @@
   cursor: pointer;
 }
 
+#hide_sidebar:hover, #dark_mode:hover {
+  color: #5f5f5f;
+}
 
+#container {
+  display: flex;
+  height: 100vh; /* set the container's height to the full viewport height */
+}
+
+#sidebar {
+  flex: 1; /* set the sidebar element's flex value to 1/4 */
+  border-right: 2px solid #5f5f5f;
+}
+#sidebar-header{
+  border-bottom: 2px solid #5f5f5f;
+}
+
+#sidebar h1 {
+  display: inline-block;
+  font-weight: bold;
+}
+#add_new_button{
+  font-size: 50px;
+  float: right;
+  transition: color 0.3s ease;
+}
+#add_new_button:hover {
+  color: rgb(209, 209, 209);
+}
+
+#sidebar-content {
+  height: calc(100vh - 78px);
+  overflow-y: scroll;
+}
+#sidebar-note {
+  padding: 25px;
+  cursor: pointer;
+  border: #2e2e2e;
+}
+
+#sidebar-note:hover {
+  background: #ddd;
+}
+#sidebar-note.active,
+#sidebar-note.active small {
+  background: #08c;
+  color: white;
+}
+
+#mainbar {
+  border-left: 2px solid #2e2e2e;
+  flex: 3; /* set the main element's flex value to 3/4 */
+}
+
+#mainbar-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: #2e2e2e;
+}
+
+#mainbar-title {
+  display: inline-block;
+  margin: 0;
+}
+
+
+
+#mainbar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#mainbar-title {
+  margin: 0;
+}
+
+#mainbar-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#mainbar-buttons button {
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: color  0.2s ease-in-out;
+  transition: background-color  0.2s ease-in-out;
+}
+
+#mainbar-buttons button:hover {
+  color: #efefef;
+  background-color: #2b2b2b;
+}
+
+#mainbar-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#mainbar-textarea {
+  flex: 1;
+}

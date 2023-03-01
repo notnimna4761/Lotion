@@ -1,12 +1,16 @@
-function Mainbar() {
+function Mainbar({notes,onDeleteNote}) {
     return (
-        <div className="app-main">
-
-            <div className="app-main-note-edit">
-                <button>Save</button>
+        <div id ="mainbar">
+            <div id = "mainbar-header">
+                <h1 id = "mainbar-title"> Note 1 </h1>
+                <div id = "mainbar-buttons">
+                    <button id = "save_button" >save</button>
+                    {/* i changed this to notes instead of note  */}
+                    <button onClick= {() => onDeleteNote(notes.id)} id = "delete_button">delete</button>
+                </div>
             </div>
-
-            <div className="app-main-note-preview">
+            <div id = "mainbar-content">
+                <textarea id = "mainbar-textarea" placeholder = "Enter your note here..."></textarea>
             </div>
 
         </div>
