@@ -1,19 +1,60 @@
-function Mainbar({notes,onDeleteNote}) {
-    return (
-        <div id ="mainbar">
-            <div id = "mainbar-header">
-                <h1 id = "mainbar-title"> Note 1 </h1>
-                <div id = "mainbar-buttons">
-                    <button id = "save_button" >save</button>
-                    {/* i changed this to notes instead of note how do i delete if not?? i need to have note */}
-                    <button onClick= {() => onDeleteNote(notes.id)} id = "delete_button">delete</button>
-                </div>
-            </div>
-            <div id = "mainbar-content">
-                <textarea id = "mainbar-textarea" placeholder = "Enter your note here..."></textarea>
-            </div>
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
-        </div>
+function Mainbar({ formatDate, onDeleteNote, activeNote, onUpdateNote }) {
+  console.log(activeNote.id);
+  console.log("ahahahha kill me pls");
+  const onEditField = (key, value) => {
+    onUpdateNote({
+      ...activeNote,
+      [key]: value,
+      lastModified: Date.now(),
+    });
+  };
+  if (!activeNote) {
+    return (
+      <div id="mainbar-no-active-note">Select a note or create a new one</div>
     );
+  }
+
+  return (
+    <div id="mainbar">
+      <div id="mainbar-header">
+        <h1 id="mainbar-title">
+          <input
+            type="text"
+            id="mainbar-title-input"
+            value={activeNote.title}
+            onChange={(e) => onEditField("title", e.target.value)}
+            autoFocus
+          />
+        </h1>
+
+        <div id="mainbar-buttons">
+          <button id="save_button">save</button>
+          <button
+            onClick={() => onDeleteNote(activeNote.id)}
+            id="delete_button"
+          >
+            delete
+          </button>
+        </div>
+      </div>
+      <div id="date">
+        <input
+          defaultValue={formatDate(new Date().toDateString())}
+          id="date"
+          type="datetime-local"
+        />
+      </div>
+      <div id="mainbar-content">
+        <ReactQuill
+          theme="snow"
+          value={activeNote.body}
+          onChange={(e) => onEditField("body", e.target.value)}
+        />
+      </div>
+    </div>
+  );
 }
 export default Mainbar;
