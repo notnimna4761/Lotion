@@ -18,6 +18,7 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote, formatDate }) => {
     if (isNoteModified) {
       onUpdateNote({
         ...activeNote,
+        body: activeNote.body,
         lastModified: Date.now(),
       });
       setIsNoteModified(false);
@@ -57,7 +58,7 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote, formatDate }) => {
 
         <div id="date">
           <input
-            defaultValue={activeNote.lastModified}
+            value={activeNote.lastModified}
             id="date"
             type="datetime-local"
             onChange={(e) => onEditField("lastModified", e.target.value)}
