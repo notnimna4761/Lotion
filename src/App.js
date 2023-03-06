@@ -37,7 +37,10 @@ function App() {
   };
 
   const onDeleteNote = (noteId) => {
-    setNotes(notes.filter(({ id }) => id !== noteId));
+    const answer = window.confirm("Are you sure?");
+    if (answer) {
+      setNotes(notes.filter(({ id }) => id !== noteId));
+    }
   };
 
   const onUpdateNote = (updatedNote) => {
