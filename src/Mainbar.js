@@ -1,60 +1,79 @@
+import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-function Mainbar({ formatDate, onDeleteNote, activeNote, onUpdateNote }) {
-  console.log(activeNote.id);
-  console.log("ahahahha kill me pls");
-  const onEditField = (key, value) => {
+const Main = ({ activeNote, onUpdateNote, onDeleteNote, formatDate }) => {
+  const [isNoteModified, setIsNoteModified] = useState(false);
+
+  const onEditField = (field, value) => {
     onUpdateNote({
       ...activeNote,
-      [key]: value,
+      [field]: value,
       lastModified: Date.now(),
     });
+    setIsNoteModified(true);
   };
-  if (!activeNote) {
+
+  const onSaveNote = () => {
+    if (isNoteModified) {
+      onUpdateNote({
+        ...activeNote,
+        lastModified: Date.now(),
+      });
+      setIsNoteModified(false);
+    }
+  };
+
+  if (!activeNote)
     return (
-      <div id="mainbar-no-active-note">Select a note or create a new one</div>
+      <div className="no-active-note">Select a note or create a new one</div>
     );
-  }
 
   return (
-    <div id="mainbar">
-      <div id="mainbar-header">
-        <h1 id="mainbar-title">
-          <input
-            type="text"
-            id="mainbar-title-input"
-            value={activeNote.title}
-            onChange={(e) => onEditField("title", e.target.value)}
-            autoFocus
-          />
-        </h1>
-
-        <div id="mainbar-buttons">
-          <button id="save_button">save</button>
-          <button
-            onClick={() => onDeleteNote(activeNote.id)}
-            id="delete_button"
-          >
-            delete
-          </button>
+    <div className="app-main">
+      <div className="app-main-note-edit">
+        <div id="mainbar-header">
+          <h1 id="mainbar-title">
+            <input
+              type="text"
+              id="mainbar-title-input"
+              value={activeNote.title}
+              onChange={(e) => onEditField("title", e.target.value)}
+              autoFocus
+            />
+          </h1>
+          <div id="mainbar-buttons">
+            <button id="save_button" onClick={onSaveNote}>
+              save
+            </button>
+            <button
+              id="delete_button"
+              onClick={(e) => onDeleteNote(activeNote.id)}
+            >
+              delete
+            </button>
+          </div>
         </div>
-      </div>
-      <div id="date">
-        <input
-          defaultValue={formatDate(new Date().toDateString())}
-          id="date"
-          type="datetime-local"
-        />
-      </div>
-      <div id="mainbar-content">
-        <ReactQuill
-          theme="snow"
-          value={activeNote.body}
-          onChange={(e) => onEditField("body", e.target.value)}
-        />
+
+        <div id="date">
+          <input
+            defaultValue={activeNote.lastModified}
+            id="date"
+            type="datetime-local"
+            onChange={(e) => onEditField("lastModified", e.target.value)}
+          />
+        </div>
+
+        <div id="mainbar-content">
+          <ReactQuill
+            theme="snow"
+            value={activeNote.body}
+            onChange={(value) => onEditField("body", value)}
+          />
+        </div>
       </div>
     </div>
   );
-}
-export default Mainbar;
+};
+
+export default Main;

@@ -1,237 +1,257 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css");
+
+* {
+  box-sizing: border-box;
+}
+/* COLORS */
 :root {
-  --black: #000000;
-  --lightblck: #2e2e2e;
-  --metal: #31393c;
-  --lightmetal: #5f5f5f;
-  --blue: #2a76b4;
-  --green: #3ecd75;
-  --darkgreen: #218953;
   --white: #ffffff;
-  --red: #ff0000;
+  --black: #000000;
+
   transition: all 0.5s ease;
 }
 
 :root.dark-mode {
-  --black: #eaeaea;
-  --lightblck: #e7e7e7;
-  --metal: #d3d3d3;
-  --lightmetal: #c2c2c2;
-  --blue: #4580e6;
-  --green: #006d41;
-  --darkgreen: #02482f;
   --white: #000000;
-  --red: #ff0000;
+  --black: #ffffff;
   transition: all 0.5s ease;
 }
+/* GLOBAL STYLES */
 
-html,
-body {
-  margin: 0;
-  padding: 0;
+body,
+.App {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  overflow: hidden;
+  font-size: 16px;
+  background-color: #eb67d9;
+  background: url(https://www.toptal.com/designers/subtlepatterns/patterns/lightpaperfibers.png);
 }
+
 button {
   background: none;
   border: 0;
   margin: 0;
-  padding: 10px;
+  padding: 0;
   font-size: inherit;
   font-family: inherit;
   cursor: pointer;
-  color: var(--darkgreen);
+  color: #08c;
   transition: background-color 0.3s ease-in-out;
 }
 button:hover {
-  color: var(--green);
-  background-color: var(--lightmetal);
+  color: #04c;
+  background-color: #dde3ff;
+  border-radius: 10px;
 }
 
+/* HEADBAR STYLES */
 #title_bar {
   display: flex;
+  background-color: var(--white);
+  color: var(--black);
   justify-content: space-between;
   align-items: center;
-  background-color: var(--metal);
   padding: 0px;
   border-bottom: 3px solid #5f5f5f;
 }
 
 #center_text {
-  color: var(--darkgreen);
   text-align: center;
 }
 #subheading {
-  color: var(--green);
+  color: #5f5f5f;
 }
 #hide_sidebar,
 #dark_mode {
   font-size: 50px;
+  padding: 20px;
   background-color: transparent;
   border: none;
   cursor: pointer;
+  border-radius: 5px;
   transition: background-color 0.3s ease-in-out;
 }
 
 #hide_sidebar:hover,
 #dark_mode:hover {
-  color: var(--green);
-  background-color: var(--lightmetal);
+  background-color: #dde3ff;
   transition: background-color 0.3s ease-in-out;
   border-radius: 20px;
 }
 
 #container {
-  background-color: inherit;
   display: flex;
-  height: 100vh; /* set the container's height to the full viewport height */
+  height: 100vh;
 }
 
+/* SIDEBAR STYLES */
+
 #sidebar {
-  background-color: var(--lightblck);
-  flex: 1; /* set the sidebar element's flex value to 1/4 */
+  display: flex;
+  background-color: var(--white);
+  color: var(--black);
+  flex-direction: column;
+  flex: 1;
   border-right: 2px solid #5f5f5f;
 }
 #sidebar.hide {
   display: none;
 }
-#sidebar-header {
-  color: var(--darkgreen);
-  background-color: var(--lightblck);
+
+.app-sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 2px solid #5f5f5f;
 }
-
-#sidebar h1 {
-  background-color: inherit;
-  display: inline-block;
-  font-weight: bold;
-  padding-left: 13px;
+.app-sidebar-header h1 {
+  margin: 0;
+  padding: 20px;
 }
-#add_new_button {
+.app-sidebar-header button {
   font-size: 50px;
-  float: right;
-  padding: auto;
-  transition: color 0.3s ease;
-  transition: background-color 0.3s ease-in-out;
-  padding-right: 13px;
-}
-#add_new_button:hover {
-  color: var(--green);
-  border-radius: 15px;
+  color: #08c;
+  padding: 20px;
+  height: 100%;
 }
 
-#sidebar-content {
-  height: calc(100vh - 78px);
+.app-sidebar-notes {
+  border-right: 2px solid #5f5f5f;
   overflow-y: scroll;
-
-  color: var(--darkgreen);
-  background-color: var(--lightblck);
 }
-.sidebar-note {
-  background-color: inherit;
+.app-sidebar-note {
   padding: 25px;
   cursor: pointer;
-  border: var(--lightmetal);
-  border-radius: 20px;
-  transition: background-color 0.3s ease-in-out;
 }
-
-.sidebar-note:hover {
-  background: var(--lightmetal);
-  border-radius: 20px;
-}
-.sidebar-note.active,
-.sidebar-note.active small {
-  background: var(--lightmetal);
-  color: var(--green);
-  border-radius: 20px;
-}
-
-#mainbar {
-  border-left: 2px solid #2e2e2e;
-  flex: 3; /* set the main element's flex value to 3/4 */
-}
-#mainbar-no-active-note {
-  border-left: 2px solid #2e2e2e;
-  flex: 3;
-  color: var(--darkgreen);
-  background-color: var(--lightblck);
+.sidebar-note-title {
   display: flex;
+  justify-content: space-between;
+}
+.app-sidebar-note button {
+  color: crimson;
+}
+.app-sidebar-note p {
+  margin: 10px 0;
+}
+.app-sidebar-note small {
+  display: block;
+  color: #999;
+}
+
+.app-sidebar-note:hover {
+  background: #ddd;
+}
+.app-sidebar-note.active,
+.app-sidebar-note.active small {
+  background: #08c;
+  color: white;
+}
+
+/* NOTE EDITOR/PREVIEW (MAIN) STYLES */
+.app-main {
+  display: flex;
+  background-color: var(--white);
+  color: var(--black);
+  flex-direction: column;
+  flex: 3;
+}
+
+.app-main-note-edit {
+  flex: 3;
+}
+
+.no-active-note {
+  display: flex;
+  flex-direction: column;
+  flex: 3;
   justify-content: center;
   align-items: center;
-  font-size: 50px;
+  text-align: center;
+  font-size: 2rem;
+  color: #999;
+  background-color: var(--white);
 }
 
+/* Editing */
+.app-main-note-edit input {
+  display: block;
+  border: none;
+  margin-bottom: 20px;
+  height: 100%;
+  resize: none;
+  font-size: inherit;
+  font-family: inherit;
+}
 #mainbar-header {
   display: flex;
   justify-content: space-between;
-  border-bottom: #2e2e2e;
-  color: var(--darkgreen);
-  background-color: var(--lightblck);
-}
-#mainbar-content {
-  display: flex;
-  flex-direction: column;
-  color: var(--white);
-  background-color: var(--lightblck);
-  height: 100%;
-}
-#mainbar-title-input {
-  background-color: var(--lightblck);
-  border: none;
-  color: var(--darkgreen);
-  font-size: 30px;
-  font-weight: bold;
-  padding: 10px;
-  width: 100%;
 }
 #mainbar-title {
   display: inline-block;
   margin: 0;
+  height: 100%;
 }
-
+#mainbar-title-input {
+  background-color: var(--white);
+  color: var(--black);
+  padding: 10px;
+  margin: auto;
+}
 #mainbar-buttons {
   display: flex;
   justify-content: flex-end;
 }
-
 #mainbar-buttons button {
-  background-color: transparent;
-  border: none;
-  font-size: 18px;
+  font-size: 25px;
   margin-left: 10px;
-  cursor: pointer;
-  transition: color 0.3s ease-in-out;
-  transition: background-color 0.3s ease-in-out;
+}
+#save_button {
+  color: var(--black);
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+#save_button:hover {
+  background-color: rgb(70, 204, 146);
+  border-radius: 10px;
 }
 
-#mainbar-buttons button:hover {
-  color: var(--green);
-  background-color: var(--lightmetal);
-  border-radius: 15px;
+#delete_button {
+  color: var(--black);
+  padding-left: 20px;
+  padding-right: 20px;
+}
+#delete_button:hover {
+  background-color: #eb6767;
+  border-radius: 10px;
 }
 #date {
-  color: var(--darkgreen);
-  background-color: var(--lightblck);
-  border: none;
+  margin: 0;
+  padding: 0px;
+  font-size: 20px;
+  background-color: var(--white);
+  color: var(--black);
 }
 
-.ql-container.ql-snow {
-  border: 1px solid var(--lightblck) !important;
-}
-.ql-toolbar.ql-snow {
-  border: 1px solid var(--lightmetal) !important;
+#mainbar-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .ql-toolbar.ql-snow .ql-picker-label {
-  color: var(--green);
+  color: var(--black);
 }
-
 .ql-fill {
-  fill: var(--green) !important;
+  fill: var(--black) !important;
 }
 .ql-stroke {
-  stroke: var(--green) !important;
+  stroke: var(--black) !important;
 }
 .quill-container {
-  border: none;
+  border: none !important;
 }
 .ql-toolbar {
-  border: none;
+  border: none !important;
+  border-bottom: 1px solid #5f5f5f !important;
 }

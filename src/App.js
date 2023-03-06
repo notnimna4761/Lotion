@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import uuid from "react-uuid";
-import Sidebar from "./Sidebar.js";
-import Mainbar from "./Mainbar.js";
-import Headbar from "./Headbar.js";
+import "./index.css";
+
+import Headbar from "./Headbar";
+import Mainbar from "./Mainbar";
+import Sidebar from "./Sidebar";
 
 function App() {
-  const [notes, setNotes] = useState([]);
-  const [activeNote, setActiveNote] = useState(null);
+  const [notes, setNotes] = useState(
+    localStorage.notes ? JSON.parse(localStorage.notes) : []
+  );
+  const [activeNote, setActiveNote] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
 
   const date = {
     year: "numeric",
@@ -17,7 +25,7 @@ function App() {
   };
 
   const formatDate = (when) => {
-    const formatted = new Date(when).toLocaleString("en-US", date);
+    const formatted = new Date(when).toLocaleString("en-CA", date);
     if (formatted === "Invalid Date") {
       return "";
     }
@@ -28,8 +36,8 @@ function App() {
     const newNote = {
       id: uuid(),
       title: "Untitled Note",
-      body: "...",
-      lastModified: Date.now().toLocaleString(),
+      body: "",
+      lastModified: Date.now(),
     };
 
     setNotes([newNote, ...notes]);
@@ -44,17 +52,19 @@ function App() {
   };
 
   const onUpdateNote = (updatedNote) => {
-    const updatedNotesArray = notes.map((note) => {
-      if (note.id === activeNote.id) {
+    const updatedNotesArr = notes.map((note) => {
+      if (note.id === updatedNote.id) {
         return updatedNote;
       }
+
       return note;
     });
-    setNotes(updatedNotesArray);
+
+    setNotes(updatedNotesArr);
   };
 
   const getActiveNote = () => {
-    return notes.find((note) => note.id === activeNote);
+    return notes.find(({ id }) => id === activeNote);
   };
 
   return (
@@ -64,15 +74,15 @@ function App() {
         <Sidebar
           notes={notes}
           onAddNote={onAddNote}
+          onDeleteNote={onDeleteNote}
           activeNote={activeNote}
           setActiveNote={setActiveNote}
-          onDeleteNote={onDeleteNote}
         />
         <Mainbar
+          activeNote={getActiveNote()}
+          onUpdateNote={onUpdateNote}
           formatDate={formatDate}
           onDeleteNote={onDeleteNote}
-          activeNote={getActiveNote}
-          onUpdateNote={onUpdateNote}
         />
       </div>
     </div>
