@@ -1,33 +1,45 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 const Main = ({ activeNote, onUpdateNote, onDeleteNote, formatDate }) => {
-  const [isNoteModified, setIsNoteModified] = useState(false);
+  const quill = useRef();
+
+  function getCurrentDateTime() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
+    const timezoneOffset = now.getTimezoneOffset() / -60;
+    const timezoneOffsetFormatted = String(timezoneOffset).padStart(2, "0");
+    const datetime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}-${timezoneOffsetFormatted}:00`;
+    return datetime;
+  }
+  console.log(getCurrentDateTime());
 
   const onEditField = (field, value) => {
+    const newNote = {
+      ...activeNote,
+      [field]: value,
+      lastModified: Date.now(),
+    };
+    onUpdateNote(newNote);
+  };
+
+  const onSaveNote = (field, value) => {
     onUpdateNote({
       ...activeNote,
       [field]: value,
       lastModified: Date.now(),
     });
-    setIsNoteModified(true);
-  };
-
-  const onSaveNote = () => {
-    if (isNoteModified) {
-      onUpdateNote({
-        ...activeNote,
-        body: activeNote.body,
-        lastModified: Date.now(),
-      });
-      setIsNoteModified(false);
-    }
   };
 
   if (!activeNote)
     return (
-      <div className="no-active-note">Select a note or create a new one</div>
+      <div className="no-active-note">Select a note or create a new one </div>
     );
 
   return (
@@ -39,12 +51,19 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote, formatDate }) => {
               type="text"
               id="mainbar-title-input"
               value={activeNote.title}
-              onChange={(e) => onEditField("title", e.target.value)}
+              onChange={(e) => {
+                onEditField("title", e.target.value);
+              }}
               autoFocus
             />
           </h1>
           <div id="mainbar-buttons">
-            <button id="save_button" onClick={onSaveNote}>
+            <button
+              id="save_button"
+              onClick={() =>
+                onSaveNote("body", quill.current.getEditor().getText())
+              }
+            >
               save
             </button>
             <button
@@ -58,19 +77,19 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote, formatDate }) => {
 
         <div id="date">
           <input
-            value={activeNote.lastModified}
-            id="date"
             type="datetime-local"
-            onChange={(e) => onEditField("lastModified", e.target.value)}
+            id="date"
+            value={new Date(activeNote.lastModified).toISOString().slice(0, -8)}
+            onChange={(e) => {
+              const newDate = new Date(e.target.value);
+              const timestamp = newDate.getTime();
+              onEditField("lastModified", timestamp);
+            }}
           />
         </div>
 
         <div id="mainbar-content">
-          <ReactQuill
-            theme="snow"
-            value={activeNote.body}
-            onChange={(value) => onEditField("body", value)}
-          />
+          <ReactQuill ref={quill} theme="snow" value={activeNote.body} />
         </div>
       </div>
     </div>
