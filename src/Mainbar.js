@@ -1,24 +1,9 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 const Main = ({ activeNote, onUpdateNote, onDeleteNote, formatDate }) => {
   const quill = useRef();
-
-  function getCurrentDateTime() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
-    const hours = String(now.getHours()).padStart(2, "0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const seconds = String(now.getSeconds()).padStart(2, "0");
-    const timezoneOffset = now.getTimezoneOffset() / -60;
-    const timezoneOffsetFormatted = String(timezoneOffset).padStart(2, "0");
-    const datetime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}-${timezoneOffsetFormatted}:00`;
-    return datetime;
-  }
-  console.log(getCurrentDateTime());
 
   const onEditField = (field, value) => {
     const newNote = {
@@ -74,22 +59,25 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote, formatDate }) => {
             </button>
           </div>
         </div>
+        <div id="mainbar-edit">
+          <div id="date">
+            <input
+              type="datetime-local"
+              id="date"
+              value={new Date(activeNote.lastModified)
+                .toISOString()
+                .slice(0, -8)}
+              onChange={(e) => {
+                const newDate = new Date(e.target.value);
+                const timestamp = newDate.getTime();
+                onEditField("lastModified", timestamp);
+              }}
+            />
+          </div>
 
-        <div id="date">
-          <input
-            type="datetime-local"
-            id="date"
-            value={new Date(activeNote.lastModified).toISOString().slice(0, -8)}
-            onChange={(e) => {
-              const newDate = new Date(e.target.value);
-              const timestamp = newDate.getTime();
-              onEditField("lastModified", timestamp);
-            }}
-          />
-        </div>
-
-        <div id="mainbar-content">
-          <ReactQuill ref={quill} theme="snow" value={activeNote.body} />
+          <div id="mainbar-content">
+            <ReactQuill ref={quill} theme="snow" value={activeNote.body} />
+          </div>
         </div>
       </div>
     </div>
