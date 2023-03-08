@@ -135,7 +135,9 @@ button:hover {
   margin: 10px 0;
 }
 .app-sidebar-note small {
-  display: block;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
   color: #999;
 }
 
@@ -164,7 +166,7 @@ button:hover {
 .no-active-note {
   display: flex;
   flex-direction: column;
-  flex: 3;
+  flex: 3 !important;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -175,7 +177,8 @@ button:hover {
 
 /* Editing */
 .app-main-note-edit input {
-  display: block;
+  display: flex;
+  flex: 3;
   border: none;
   margin-bottom: 20px;
   height: 100%;
@@ -183,8 +186,18 @@ button:hover {
   font-size: inherit;
   font-family: inherit;
 }
-#mainbar-header {
+#mainbar {
   display: flex;
+  color: var(--black);
+  background-color: var(--white);
+  flex-direction: column;
+  flex: 3;
+  height: 100%;
+}
+#mainbar-header {
+  background-color: var(--white);
+  display: flex;
+  padding: 12px;
   justify-content: space-between;
 }
 #mainbar-title {
@@ -216,6 +229,12 @@ button:hover {
   background-color: rgb(70, 204, 146);
   border-radius: 10px;
 }
+#edit-link {
+  color: var(--black);
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: auto;
+}
 
 #delete_button {
   color: var(--black);
@@ -228,15 +247,18 @@ button:hover {
 }
 #date {
   margin: 0;
-  padding: 0px;
+  border: none;
+  padding: 10px;
   font-size: 20px;
   background-color: var(--white);
   color: var(--black);
 }
 
 #mainbar-content {
+  background-color: var(--white);
   display: flex;
   flex-direction: column;
+  padding: 12px;
   height: 100%;
 }
 .ql-toolbar.ql-snow .ql-picker-label {

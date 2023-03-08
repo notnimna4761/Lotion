@@ -1,24 +1,33 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
+
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 const Main = ({ activeNote, onUpdateNote, onDeleteNote, formatDate }) => {
   const quill = useRef();
+  // const navigate = useNavigate();
 
-  const onEditField = (field, value) => {
-    const newNote = {
-      ...activeNote,
-      [field]: value,
-      lastModified: Date.now(),
-    };
-    onUpdateNote(newNote);
-  };
+  const [body, setBody] = useState("");
+  const [title, setTitle] = useState("");
+  const [when, setWhen] = useState("");
 
-  const onSaveNote = (field, value) => {
+  // useEffect(() => {
+  //   if (activeNote) {
+  //     setBody(activeNote.body);
+  //     console.log(activeNote.body);
+  //   }
+  // }, []);
+
+  const onSaveNote = (title, body, when) => {
+    console.log(title);
+    // when the time
+
     onUpdateNote({
       ...activeNote,
-      [field]: value,
+      title: title,
+      body: body,
       lastModified: Date.now(),
+      userDate: when,
     });
   };
 
@@ -36,18 +45,14 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote, formatDate }) => {
               type="text"
               id="mainbar-title-input"
               value={activeNote.title}
-              onChange={(e) => {
-                onEditField("title", e.target.value);
-              }}
+              onChange={setTitle}
               autoFocus
             />
           </h1>
           <div id="mainbar-buttons">
             <button
               id="save_button"
-              onClick={() =>
-                onSaveNote("body", quill.current.getEditor().getText())
-              }
+              onClick={() => onSaveNote(title, body, when)}
             >
               save
             </button>
@@ -64,19 +69,20 @@ const Main = ({ activeNote, onUpdateNote, onDeleteNote, formatDate }) => {
             <input
               type="datetime-local"
               id="date"
-              value={new Date(activeNote.lastModified)
-                .toISOString()
-                .slice(0, -8)}
+              value={activeNote.userDate}
               onChange={(e) => {
-                const newDate = new Date(e.target.value);
-                const timestamp = newDate.getTime();
-                onEditField("lastModified", timestamp);
+                setWhen(e.target.value);
               }}
             />
           </div>
 
           <div id="mainbar-content">
-            <ReactQuill ref={quill} theme="snow" value={activeNote.body} />
+            <ReactQuill
+              ref={quill}
+              theme="snow"
+              value={body}
+              onChange={setBody}
+            />
           </div>
         </div>
       </div>
