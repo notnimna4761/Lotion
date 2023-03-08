@@ -147,6 +147,7 @@ button:hover {
 .app-sidebar-note.active,
 .app-sidebar-note.active small {
   background: #08c;
+  border-radius: 10px;
   color: white;
 }
 
