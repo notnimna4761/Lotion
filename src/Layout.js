@@ -76,6 +76,7 @@ function Layout() {
                 key={id}
                 onClick={() => {
                   navigate(`/preview/${id}`, { replace: true });
+                  setActiveNote(id);
                 }}
               >
                 <div className="sidebar-note-title">
