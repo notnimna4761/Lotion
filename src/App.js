@@ -8,7 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />} exact>
+        <Route element={<Layout />} exact>
           <Route path="/" element={<NoNote />} exact />
           <Route path="/Preview/:id" element={<Preview />} />
           <Route path="/Edit/:id" element={<Edit />} />

@@ -123,6 +123,7 @@ button:hover {
 .app-sidebar-note {
   padding: 25px;
   cursor: pointer;
+  background-color: #eb67d9;
 }
 .sidebar-note-title {
   display: flex;
@@ -201,7 +202,8 @@ button:hover {
   justify-content: space-between;
 }
 #mainbar-title {
-  display: inline-block;
+  display: flex;
+  flex: 3;
   margin: 0;
   height: 100%;
 }
@@ -210,9 +212,11 @@ button:hover {
   color: var(--black);
   padding: 10px;
   margin: auto;
+  width: 100%;
 }
 #mainbar-buttons {
   display: flex;
+  flex: 1;
   justify-content: flex-end;
 }
 #mainbar-buttons button {

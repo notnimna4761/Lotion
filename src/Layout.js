@@ -73,11 +73,10 @@ function Layout() {
             {sortedNotes.map(({ id, title, body, lastModified }, i) => (
               <div
                 className={`app-sidebar-note ${id === activeNote && "active"}`}
-                onClick={() =>
-                  setActiveNote(id) &&
-                  navigate(`/Preview/${id}`, { replace: true }) &&
-                  console.log("WHY WONT U WORK")
-                }
+                key={id}
+                onClick={() => {
+                  navigate(`/preview/${id}`, { replace: true });
+                }}
               >
                 <div className="sidebar-note-title">
                   <strong>{title && title.substr(0, 50)}</strong>

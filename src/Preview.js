@@ -46,9 +46,14 @@ function Preview() {
               <Link key={note.id} to={"/Edit/" + note.id} id="edit-link">
                 <button id="save_button">Edit</button>
               </Link>
-              <button id="delete_button" onClick={(e) => onDeleteNote(note.id)}>
-                delete
-              </button>
+              <Link>
+                <button
+                  id="delete_button"
+                  onClick={(e) => onDeleteNote(note.id)}
+                >
+                  delete
+                </button>
+              </Link>
             </div>
           </div>
           <div id="mainbar-edit">
