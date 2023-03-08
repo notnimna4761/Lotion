@@ -1,11 +1,11 @@
 import React from "react";
 import { useOutletContext, useParams, Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 function Preview() {
   const { id } = useParams();
   const [notesObjects, setNotes] = useOutletContext();
-  const navigate = useNavigate(); // hook to use navigation
+  //   const navigate = useNavigate(); // hook to use navigation
 
   const note = notesObjects.find((note) => note.id === id);
   if (!note) {

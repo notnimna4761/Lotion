@@ -16,14 +16,6 @@ function Layout() {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
 
-  const date = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-  };
-
   const handleDarkModeClick = () => {
     setIsDarkMode(!isDarkMode);
     const root = document.documentElement;
@@ -33,14 +25,6 @@ function Layout() {
   const hideSideBar = () => {
     const sidebar = document.getElementById("sidebar");
     sidebar.classList.toggle("hide");
-  };
-
-  const formatDate = (when) => {
-    const formatted = new Date(when).toLocaleString("en-CA", date);
-    if (formatted === "Invalid Date") {
-      return "";
-    }
-    return formatted;
   };
 
   var onAddNote = () => {
