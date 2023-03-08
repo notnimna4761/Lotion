@@ -92,14 +92,20 @@ function Layout() {
                 onClick={() =>
                   setActiveNote(id) &&
                   navigate(`/Preview/${id}`, { replace: true }) &&
-                  console.log(id)
+                  console.log("WHY WONT U WORK")
                 }
               >
                 <div className="sidebar-note-title">
-                  <strong>{title && title.substr(0, 50) + "..."}</strong>
+                  <strong>{title && title.substr(0, 50)}</strong>
                 </div>
 
-                <p>{body && body.substr(0, 100) + "..."}</p>
+                <p>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: body && body.substr(0, 200) + "...",
+                    }}
+                  ></div>
+                </p>
                 <small className="note-meta">
                   Last Modified{" "}
                   {new Date(lastModified).toLocaleDateString("en-CA", {

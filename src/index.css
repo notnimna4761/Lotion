@@ -231,9 +231,11 @@ button:hover {
 }
 #edit-link {
   color: var(--black);
+  height: 100%;
   padding-left: 20px;
   padding-right: 20px;
   margin: auto;
+  height: auto;
 }
 
 #delete_button {
@@ -260,6 +262,8 @@ button:hover {
   flex-direction: column;
   padding: 12px;
   height: 100%;
+  height: calc(100vh - 130px); /* Subtract the height of other elements */
+  overflow-y: auto;
 }
 .ql-toolbar.ql-snow .ql-picker-label {
   color: var(--black);
