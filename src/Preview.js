@@ -1,17 +1,18 @@
 import React from "react";
-import { useOutletContext, useParams, Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
-
+import {
+  useOutletContext,
+  useParams,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 function Preview() {
   const { id } = useParams();
   const [notesObjects, setNotes] = useOutletContext();
-  //   const navigate = useNavigate(); // hook to use navigation
 
+  const navigate = useNavigate();
   const note = notesObjects.find((note) => note.id === id);
   if (!note) {
-    return (
-      <div className="no-active-note">Select a note or create a new one</div>
-    );
+    navigate(`/`, { replace: true });
   }
   const options = {
     year: "numeric",
