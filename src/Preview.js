@@ -41,7 +41,9 @@ function Preview() {
       <div className="app-main">
         <div className="app-main-note-edit">
           <div id="mainbar-header">
-            <h1 id="mainbar-title">{note.title}</h1>
+            <h1 id="mainbar-title">
+              {note.title && note.title.substr(0, 100)} {"..."}
+            </h1>
             <div id="mainbar-buttons">
               <Link key={note.id} to={"/Edit/" + note.id} id="edit-link">
                 <button id="save_button">Edit</button>

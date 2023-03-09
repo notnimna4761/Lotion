@@ -28,13 +28,17 @@ function Layout() {
   };
 
   var onAddNote = () => {
+    let now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    let date = now.toISOString().slice(0, 16);
+
     var newNote = {
       id: uuid(),
       title: "Untitled Note",
       body: "",
       bodyPreview: "",
       lastModified: Date.now(),
-      userDate: "",
+      userDate: date,
     };
 
     setNotes([newNote, ...notes]);
